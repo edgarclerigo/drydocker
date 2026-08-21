@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drydock — Docker &amp; Portainer for iPhone, iPad, and Mac</title>
+<meta name="description" content="Drydock manages your Docker environments through Portainer or Dockhand, natively on iPhone, iPad, and Mac. No backend, no account, no tracking — your credentials never leave your device.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<style>
+  :root {
+    --primary: #2340a6;
+    --primary-dark: #17296f;
+    --ink: #15151c;
+    --ink-soft: #4a4a55;
+    --ink-faint: #8a8a96;
+    --bg: #ffffff;
+    --bg-soft: #f2f2f7;
+    --line: #e5e5ea;
+    --success: #1f9d55;
+    --radius: 16px;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  nav .links { display: flex; align-items: center; gap: 28px; font-size: 15px; font-weight: 500; }
+  nav .links a { text-decoration: none; color: var(--ink-soft); }
+  nav .links a:hover { color: var(--ink); }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-testflight {
+    background: linear-gradient(135deg, #1fb2ff, #0a5fc7);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(13, 150, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-testflight:hover {
+    background: linear-gradient(135deg, #1fb2ff, #0a5fc7);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(13, 150, 246, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .btn-testflight svg { flex: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(35, 64, 166, 0.07), transparent 55%),
+      var(--bg);
+    padding: 88px 0 56px;
+    text-align: center;
+  }
+  .hero .mark { width: 84px; height: 84px; margin: 0 auto 28px; }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin: 0 0 18px;
+  }
+  .hero h1 span { color: var(--primary); }
+  .hero p.lead {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 auto 36px;
+  }
+  .hero .cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-lg { padding: 14px 26px; font-size: 16px; }
+  .btn-ghost { background: var(--bg-soft); color: var(--ink); }
+  .btn-ghost:hover { background: var(--line); }
+  .status-note {
+    margin: 22px auto 0;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+  .status-note .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    margin-right: 7px;
+  }
+
+  /* ---------- Screenshot strip ---------- */
+  .strip-outer {
+    overflow-x: auto;
+    padding-bottom: 48px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .strip-outer::-webkit-scrollbar { display: none; }
+  .strip {
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    margin: 0 auto;
+    padding: 8px 24px 0;
+    scroll-snap-type: x proximity;
+  }
+  .strip img {
+    scroll-snap-align: center;
+    width: 220px;
+    flex: none;
+    border-radius: 22px;
+    box-shadow: 0 24px 48px rgba(21, 21, 28, 0.16);
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 80px 0; }
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 52px; }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+  }
+  .section-head p { font-size: 17px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+
+  /* ---------- Feature grid ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature {
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .feature .icon {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .feature h3 { font-size: 18px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .feature p { font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+
+  /* ---------- Privacy band ---------- */
+  .privacy {
+    background: linear-gradient(165deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    border-radius: 28px;
+    margin: 0 24px;
+    padding: 64px 40px;
+    text-align: center;
+  }
+  .privacy .eyebrow { color: rgba(255, 255, 255, 0.75); }
+  .privacy h2 { color: #fff; }
+  .privacy p.lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+  .privacy-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .privacy-points div { font-size: 15px; line-height: 1.5; color: rgba(255, 255, 255, 0.92); }
+  .privacy-points strong { display: block; font-size: 16px; margin-bottom: 6px; }
+  .privacy-link {
+    display: inline-block;
+    margin-top: 36px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .privacy-link:hover { color: rgba(255, 255, 255, 0.85); }
+
+  /* ---------- Providers band ---------- */
+  .providers-band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .provider-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 26px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .provider-card .swatch { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* ---------- Closing CTA ---------- */
+  .cta-final { text-align: center; }
+  .cta-final h2 { margin: 0 0 12px; }
+  .cta-final p { font-size: 17px; color: var(--ink-soft); line-height: 1.6; max-width: 480px; margin: 0 auto 32px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+  }
+  footer .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+  footer a { text-decoration: none; color: var(--ink-soft); font-weight: 600; }
+  footer a:hover { color: var(--ink); }
+  footer .foot-links { display: flex; gap: 22px; }
+
+  @media (max-width: 760px) {
+    nav .links { display: none; }
+    .features { grid-template-columns: 1fr; }
+    .privacy-points { grid-template-columns: 1fr; }
+    .privacy { margin: 0 12px; padding: 48px 24px; }
+    section { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top">
+        <img src="assets/favicon.png" alt="">
+        Drydock
+      </a>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#providers">Providers</a>
+        <a href="https://github.com/edgarclerigo/drydocker/issues">Feedback</a>
+      </div>
+      <a class="btn btn-testflight" href="https://testflight.apple.com/join/KYA8vNBW">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2.5-6.5L3 11z" fill="#fff"/><path d="M10.5 14.5L21 3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Join TestFlight
+      </a>
+    </nav>
+  </div>
+</header>
+
+<div id="top"></div>
+<section class="hero">
+  <div class="wrap">
+    <img class="mark" src="assets/mark.svg" alt="Drydock">
+    <h1>Your containers,<br><span>ship-shape.</span></h1>
+    <p class="lead">Drydock manages your Docker environments through Portainer or Dockhand — natively on iPhone, iPad, and Mac. No web view, no backend, no account.</p>
+    <div class="cta-row">
+      <a class="btn btn-testflight btn-lg" href="https://testflight.apple.com/join/KYA8vNBW">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2.5-6.5L3 11z" fill="#fff"/><path d="M10.5 14.5L21 3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Join the TestFlight Beta
+      </a>
+      <a class="btn btn-ghost btn-lg" href="#features">See what it does</a>
+    </div>
+    <p class="status-note"><span class="dot"></span>Open beta on TestFlight — no waitlist</p>
+  </div>
+</section>
+
+<div class="strip-outer">
+  <div class="strip">
+    <img src="assets/screenshot-dashboard.png" alt="Drydock dashboard showing stacks, containers, images, volumes, and networks at a glance">
+    <img src="assets/screenshot-providers.png" alt="Drydock providers list, showing multiple Portainer and Dockhand servers">
+    <img src="assets/screenshot-container.png" alt="Drydock container detail screen with health status and start, stop, restart, pause, and kill actions">
+    <img src="assets/screenshot-stack.png" alt="Drydock stack detail screen with container list and git redeploy">
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What it does</div>
+      <h2>Everything you'd do in the Portainer UI, in your pocket</h2>
+      <p>Add every server you run, see what's happening at a glance, and act on it — without opening a laptop.</p>
+    </div>
+    <div class="features">
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#2340a6" stroke-width="1.7"/><path d="M4 9h16M9 4v5" stroke="#2340a6" stroke-width="1.7"/></svg>
+        <h3>Add as many servers as you run</h3>
+        <p>Home lab, staging, production — each gets its own credentials, stored in the Keychain and never sent anywhere but the server you told it about.</p>
+      </div>
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4-8 4-8-4z" stroke="#2340a6" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4" stroke="#2340a6" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <h3>See the whole environment at once</h3>
+        <p>A dashboard for each environment: stack count, container health, image count and disk usage, volumes, and networks — the numbers you actually check first.</p>
+      </div>
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#2340a6" stroke-width="1.7"/><path d="M4 9h16M9 4v5" stroke="#2340a6" stroke-width="1.7"/></svg>
+        <h3>Full container control</h3>
+        <p>Live health and status, with start, stop, restart, pause, and kill right where you're looking at the container — no menu diving.</p>
+      </div>
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" stroke="#2340a6" stroke-width="1.7" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" stroke="#2340a6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Stacks, kept in sync with Git</h3>
+        <p>Redeploy a Git-backed stack in one tap, edit its repo/branch/auth, or delete it — right from the container list it manages.</p>
+      </div>
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#2340a6" stroke-width="1.7"/><path d="M20 20l-4.3-4.3" stroke="#2340a6" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <h3>Find anything, fast</h3>
+        <p>Search across stacks, containers, and images from the dashboard, or within any list — results sectioned so you always know what you're looking at.</p>
+      </div>
+
+      <div class="feature">
+        <svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="#2340a6" stroke-width="1.7"/><path d="M3 8h18" stroke="#2340a6" stroke-width="1.7"/></svg>
+        <h3>Built native, not bolted on</h3>
+        <p>100% SwiftUI, an adaptive layout that's genuinely useful on iPad and Mac, and 16 languages — not a web view wearing an app icon.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="providers">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Bring your own backend</div>
+      <h2>One app, either provider</h2>
+      <p>Pick per server — mix Portainer and Dockhand instances in the same provider list.</p>
+    </div>
+    <div class="providers-band">
+      <div class="provider-card"><span class="swatch" style="background:#13a6e0"></span>Portainer</div>
+      <div class="provider-card"><span class="swatch" style="background:#2340a6"></span>Dockhand</div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="privacy">
+      <div class="eyebrow">Private by design</div>
+      <h2>No backend. No account. No tracking.</h2>
+      <p class="lead">Drydock doesn't have a server of its own — there's nothing for it to phone home to, and nothing about you or your infrastructure for anyone but you to see.</p>
+      <div class="privacy-points">
+        <div><strong>Local only</strong>Credentials live in the iOS/macOS Keychain, on your device, full stop.</div>
+        <div><strong>Zero analytics</strong>No usage tracking, no crash reporting service, no third-party SDKs.</div>
+        <div><strong>Direct connection</strong>Talks straight to the Portainer or Dockhand server you point it at — no relay, no middleman.</div>
+      </div>
+      <a class="privacy-link" href="privacy.html">Read the full privacy policy →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Ready to give it a try?</h2>
+    <p>Drydock is in open beta on TestFlight right now — install it and connect your first server in a couple of minutes.</p>
+    <a class="btn btn-testflight btn-lg" href="https://testflight.apple.com/join/KYA8vNBW">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2.5-6.5L3 11z" fill="#fff"/><path d="M10.5 14.5L21 3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Join the TestFlight Beta
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Drydock. Not affiliated with or endorsed by Portainer.io or Dockhand.</div>
+    <div class="foot-links">
+      <a href="https://github.com/edgarclerigo/drydocker">GitHub</a>
+      <a href="https://github.com/edgarclerigo/drydocker/issues">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

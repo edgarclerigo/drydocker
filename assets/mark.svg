@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Drydock app icon master, 1024×1024. Provide this square as-is to Xcode's
+  single-size App Icon slot (Assets.xcassets → AppIcon → 1024pt "App Store")
+  — do NOT pre-round the corners; iOS/App Store Connect apply the rounded-
+  square mask automatically at every size. Xcode then generates the rest of
+  the required sizes from this one master.
+
+  This file needs to be rasterized to a flat PNG (no alpha channel) before
+  Xcode will accept it — App Store icons must be flattened raster, not
+  vector. Open this in a browser or vector editor (Figma, Sketch, Affinity,
+  Inkscape) and export at 1024×1024 PNG, sRGB, no transparency. No
+  rasterization tool was available in the sandbox this was authored in, so
+  that export step is still needed before this can go into the asset
+  catalog.
+
+  Geometry/colors match design/README notes from the Claude Design handoff
+  ("Drydock Identity") exactly: solid #2340A6 background, centered mark at
+  53% of the icon's edge length, three skewed bars per the DrydockMark spec
+  (see Common/Views/Components/DrydockMark.swift for the SwiftUI version
+  used on the in-app splash screen — same geometry, this is its raster
+  counterpart for the one place SwiftUI can't reach: the actual home-screen
+  icon file).
+-->
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#2340A6"/>
+  <!--
+    Skew is expressed as explicit translate/skewX/translate transform-attribute
+    triples (each anchored at that bar's own center: 512.005, <bar cy>), not
+    CSS transform-origin/transform-box — librsvg (used to rasterize this file)
+    doesn't reliably support those CSS properties, and this is the plain-SVG
+    equivalent that every renderer, including it, handles correctly.
+  -->
+  <g>
+    <rect x="284.07" y="316.63" width="455.87" height="108.54" rx="23.88"
+          fill="#FFFFFF" fill-opacity="0.38"
+          transform="translate(512.005,370.9) skewX(-18) translate(-512.005,-370.9)"/>
+    <rect x="284.07" y="457.73" width="455.87" height="108.54" rx="23.88"
+          fill="#FFFFFF" fill-opacity="0.68"
+          transform="translate(512.005,512.0) skewX(-18) translate(-512.005,-512.0)"/>
+    <rect x="284.07" y="598.83" width="455.87" height="108.54" rx="23.88"
+          fill="#FFFFFF" fill-opacity="1.0"
+          transform="translate(512.005,653.1) skewX(-18) translate(-512.005,-653.1)"/>
+  </g>
+</svg>

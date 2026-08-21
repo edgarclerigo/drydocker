@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Drydock</title>
+<meta name="description" content="Drydock's privacy policy: no backend, no account, no analytics. Credentials stay in your device's Keychain and Drydock talks directly to the Portainer or Dockhand server you configure.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<style>
+  :root {
+    --primary: #2340a6;
+    --primary-dark: #17296f;
+    --ink: #15151c;
+    --ink-soft: #4a4a55;
+    --ink-faint: #8a8a96;
+    --bg: #ffffff;
+    --bg-soft: #f2f2f7;
+    --line: #e5e5ea;
+    --success: #1f9d55;
+    --radius: 16px;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--primary); }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; color: var(--ink); }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+
+  main { padding: 64px 0 96px; }
+  .doc { max-width: 720px; margin: 0 auto; }
+
+  .doc .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .doc h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 12px;
+  }
+  .doc .updated {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin: 0 0 44px;
+  }
+  .doc p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  .doc h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 48px 0 16px;
+  }
+  .doc ul {
+    margin: 0 0 20px;
+    padding-left: 22px;
+  }
+  .doc li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .doc strong { color: var(--ink); }
+  .doc a { text-decoration: underline; text-underline-offset: 2px; }
+
+  .callout {
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .callout p { margin: 0; color: var(--ink); font-size: 15px; }
+  .callout p + p { margin-top: 10px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+  }
+  footer .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+  footer a { text-decoration: none; color: var(--ink-soft); font-weight: 600; }
+  footer a:hover { color: var(--ink); }
+  footer .foot-links { display: flex; gap: 22px; }
+
+  @media (max-width: 760px) {
+    main { padding: 44px 0 72px; }
+    .doc h2 { margin: 40px 0 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html">
+        <img src="assets/favicon.png" alt="">
+        Drydock
+      </a>
+      <a class="btn btn-primary" href="index.html">← Back to Drydock</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="doc">
+      <div class="eyebrow">Legal</div>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated August 20, 2026</p>
+
+      <p>Drydock is a native iPhone, iPad, and Mac app for managing Docker environments through Portainer or Dockhand. This policy explains what Drydock does — and, more importantly, what it doesn't do — with your data.</p>
+
+      <div class="callout">
+        <p><strong>The short version:</strong> Drydock has no backend server. It doesn't ask you to create an account. It doesn't collect analytics, and there's no crash-reporting or advertising SDK anywhere in the app. Your server credentials stay in your device's Keychain, and the app talks directly to the Portainer or Dockhand server you point it at — nothing passes through us, because there is no "us" in the middle.</p>
+      </div>
+
+      <h2>No account, no backend</h2>
+      <p>Drydock doesn't have a server of its own, and it never asks you to sign up or sign in with anything other than the Portainer or Dockhand server you already run. There is no Drydock account, no cloud sync service, and nothing for the app to "phone home" to. If our developer servers went offline tomorrow, nothing would change — because they don't exist.</p>
+
+      <h2>What's stored, and where</h2>
+      <p>Everything Drydock stores lives on your device, using Apple's standard on-device storage:</p>
+      <ul>
+        <li><strong>Server credentials</strong> (API keys, or usernames and passwords) are stored in the iOS/macOS <strong>Keychain</strong> — the same encrypted, system-managed store Apple designs for exactly this purpose. Credentials are never written to a file, a log, or anywhere outside the Keychain.</li>
+        <li><strong>Provider details</strong> — the name and address of each Portainer or Dockhand server you've added — are stored locally on-device using Apple's SwiftData framework. This data is not synced to iCloud or any other cloud service.</li>
+      </ul>
+      <p>Deleting a provider from Drydock removes its stored credentials from the Keychain and its details from local storage. Deleting the app removes its local database entries; per iOS's standard Keychain behavior, Keychain items can persist until explicitly removed or the device is erased — this is a platform-level default, not something Drydock configures differently.</p>
+
+      <h2>Network connections</h2>
+      <p>Drydock connects directly, over the network, to the Portainer or Dockhand server address you provide when you add a provider. That connection is between your device and your server — Drydock does not route it through any intermediary, proxy, or Drydock-operated service. The app requests only the network access necessary to reach the server(s) you've configured, including local-network access when a server you've added is on your local network (e.g. a home lab).</p>
+
+      <h2>What we don't collect</h2>
+      <ul>
+        <li>No analytics or usage tracking</li>
+        <li>No crash-reporting service</li>
+        <li>No advertising identifiers or ad SDKs</li>
+        <li>No third-party SDKs of any kind</li>
+        <li>No name, email address, or other personal information — Drydock never asks for any</li>
+        <li>No location, contacts, photos, or other device data unrelated to its purpose</li>
+      </ul>
+
+      <h2>Your Portainer or Dockhand server</h2>
+      <p>Drydock is a client for infrastructure you already run and control. Once connected, the app can display and act on whatever your Portainer or Dockhand server exposes — container names, images, logs metadata, stack configuration, and so on. That data belongs to your server and is governed by however you've configured and secured it; Drydock simply displays it on your device and doesn't copy it anywhere else. Portainer and Dockhand are independent projects with their own privacy and data-handling practices, which this policy doesn't cover.</p>
+
+      <h2>Children's privacy</h2>
+      <p>Drydock is a systems-administration tool and isn't directed at children. It doesn't knowingly collect information from anyone, of any age — there's simply no collection mechanism in the app.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes, the update will be posted on this page with a revised "last updated" date. Given Drydock's architecture — no backend, no account, no collection — we don't expect that to happen often.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy, or about Drydock generally, are welcome via <a href="https://github.com/edgarclerigo/drydocker/issues">GitHub Issues</a>.</p>
+
+      <div class="callout">
+        <p>This page was drafted with AI assistance based on how Drydock is actually built. It isn't a substitute for legal advice, and it doesn't override anything the app's owner says directly. For anything that needs a definitive answer — or any clarification on this policy — please reach out via <a href="https://github.com/edgarclerigo/drydocker/issues">GitHub Issues</a> above; the owner has the final word, not this page.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Drydock. Not affiliated with or endorsed by Portainer.io or Dockhand.</div>
+    <div class="foot-links">
+      <a href="https://github.com/edgarclerigo/drydocker">GitHub</a>
+      <a href="https://github.com/edgarclerigo/drydocker/issues">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
